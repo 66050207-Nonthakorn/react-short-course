@@ -1,17 +1,17 @@
-# Website
+# React Short Course
 
 This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 ## Installation
 
 ```bash
-yarn
+pnpm install
 ```
 
 ## Local Development
 
 ```bash
-yarn start
+pnpm start
 ```
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
@@ -19,23 +19,16 @@ This command starts a local development server and opens up a browser window. Mo
 ## Build
 
 ```bash
-yarn build
+pnpm build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+## Course Content
 
-## Deployment
-
-Using SSH:
-
-```bash
-USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+- **React Overview** – Get to know React and the component-based approach  
+- **Components & Props** – Build components and pass data between them  
+- **State & Events** – Manage data and handle user interactions  
+- **Lists & Conditional UI** – Render dynamic content based on conditions  
+- **Basic React Hooks** – Use `useState` and `useEffect`  
+- **Routing** – Create multi-page SPA with React Router  
+- **API Integration** – Fetch data from APIs and display it in your UI  
+- **Mini Project** – Build a small app using everything you’ve learned
