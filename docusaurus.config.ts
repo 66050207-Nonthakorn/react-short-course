@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: "This is React, Don't Overreact!",
   tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/react-favicon.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -65,7 +65,7 @@ const config: Config = {
       title: "This is React, Don't Overreact!",
       logo: {
         alt: 'Logo',
-        src: 'img/logo.svg',
+        src: 'img/react-icon.png',
         href: "/"
       },
     },
