@@ -1,0 +1,33 @@
+---
+sidebar_position: 6
+---
+
+# Lists & Conditional UI
+
+React สามารถนำ list ของ Component มา Render ได้ 
+
+```tsx
+const lists = ["a", "b", "c"]; 
+
+function Component() {
+  return (
+    <div>{lists}</div>
+  );
+}
+```
+
+เราสามารถนำ List มาแปลงเป็น HTML element ได้ด้วย function map ของ list
+
+```tsx
+// highlight-next-line
+const lists = ["a", "b", "c"]
+  .map((elem) =>
+    <button>{elem}</button>
+  ); 
+
+function Component() {
+  return (
+    <div>{lists}</div>
+  );
+}
+```

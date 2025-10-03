@@ -19,26 +19,14 @@ import componentImg from "./assets/components.png"
 
 ```tsx
 function MyText() {
-  return (
-    <h1>
-      Hello World !
-    </h1>
-  );
+  return <h1>Hello World !</h1>
 }
 
 // หรือจะเขียนในรูปแบบ Lambda ก็ได้
 const MyText = () => (
-  <h1>
-    Hello World !
-  </h1>
+  <h1>Hello World !</h1>
 );
 ```
-
-แต่ตอนเรียกใช้ Component จะต่างกับการเขียนเรียกใช้ Function ทั่วๆไป
-```tsx
-<MyText />
-```
-
 ---
 
 HTML ที่ return นั้น ไม่เหมือนกับ HTML ทั่วๆไป, React เพิ่มความสามารถให้เราเขียนตัวแปร Javascript ใน HTML นั้นๆได้ตัวอย่างเช่น สร้างตัวแปรอักษรและนำไปใส่ได้
@@ -48,16 +36,18 @@ HTML ที่ return นั้น ไม่เหมือนกับ HTML ท
 const name = "apple";
 
 function MyText() {
-  return (
-    <h1>
-      // highlight-next-line
-      Hello World {name}!
-    </h1>
-  );
+  // highlight-next-line
+  return <h1>Hello World {name}!</h1>
 }
 ```
 
 จริงๆแล้วมันมีประโยชน์มากกว่านั้นนอกจากใส่ตัวแปรเฉยๆ โดยในพูดถึงในหน้าถัดๆไป
+
+
+และในตอนเรียกใช้ Component จะต่างกับการเขียนเรียกใช้ Function ทั่วๆไปโดยหน้าตาคล้ายกับ element ของ HTML
+```tsx
+<MyText />
+```
 
 ---
 
@@ -65,22 +55,27 @@ function MyText() {
 
 หรือเรียกสั้นๆว่า Props เป็นการส่งข้อมูลไปให้ Component คล้ายกับการส่งค่าไปใน Function
 
+เราจะกำหนดว่า Props จะมีค่าอะไรบ้างด้วย interface จากนั้นเรากำหนด Parameter รับ object
+ชื่อ props (จริงๆแล้วชื่ออะไรก็ได้)
+
 ```tsx
+// highlight-start
 interface MyTextProps {
   name: string
   color: string
 }
+// highlight-end
 
+// highlight-next-line
 function MyText(props: MyTextProps) {
   return (
     <h1>
+      // highlight-next-line
       My name is {props.name} and i have color {props.color}
     </h1>
   );
 }
 ```
-
-ในโค้ดด้านบนเราจะกำหนดว่า Props จะมีค่าอะไรบ้างด้วย interface จากนั้นเรากำหนด parameter function ชื่อ props (จริงๆแล้วชื่ออะไรก็ได้)
 
 ซึ่งการส่งค่าเป็นแบบ attribute=value ตัวอย่างเช่น
 
@@ -88,4 +83,32 @@ function MyText(props: MyTextProps) {
 <MyText name="apple" color="red" />
 ```
 
-โดยนอกจะส่งค่าพื้นฐานเช่น ตัวเลขหรือข้อความ ยังมี Props พิเศษอีกหนึ่งอย่างโดยเราจะสามารถ
+โดยนอกจะส่งค่าพื้นฐานเช่นตัวเลขหรือข้อความ ยังมี Props พิเศษอีกหนึ่งอย่างโดย Props นั้นจะมี attribute ชื่อ children
+
+โดย attribute children นั้นจะเป็น Props สำหรับรับ Component
+
+```tsx
+interface ParentProps {
+  // highlight-next-line
+  children: React.ReactNode[]
+}
+
+function Parent(props: ParentProps) {
+  return (
+    <div>
+      // highlight-next-line
+      {props.children}
+    </div>
+  );
+}
+```
+
+โดยวิธีใช้งาน สมมติว่าเราอยากให้มีปุ่มอยู่ใน Component นี้
+
+```tsx
+<Parent>
+  <button>Hello I am child</button>
+</Parent>
+```
+
+ก็จะเหมือน HTML ทั่วๆไปที่สามารถซ้อนกันได้ แต่ Child จะอยู่ตรงไหนหรือทำอะไรเป็นหน้าที่ของเราที่ต้องกำหนด

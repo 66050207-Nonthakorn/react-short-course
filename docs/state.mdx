@@ -1,6 +1,67 @@
 ---
-sidebar_label: State & Event handling
 sidebar_position: 5
 ---
 
-# Make Your Website Dynamic With State
+# State
+
+ก่อนจะเริ่ม เรามาดูตัวอย่าง Component นี้กันก่อน
+
+Component ด้านล่างนี้เป็นปุ่มที่มีตัวเลข ซึ่งเมื่อกดแล้วเลขควรจะขึ้นตาม Logic ที่เขียนไว้
+
+```tsx
+function Counter() {
+  let count = 0;
+
+  return (
+    <button onClick={() => { count++; }}>
+      {count}
+    </button>
+  );
+}
+```
+
+แต่มันไม่เป็นอย่างนั้น (เอาไปลองรันดูก็ได้), ตัวเลขนั้นมีการเปลี่ยนจริงๆ แต่สิ่งที่ไม่ได้เปลี่ยนตามคือ Component
+
+เพราะ Component ไม่รู้ว่ามีการเปลี่ยนแปลงอะไรด้านในตัวเองบ้าง ดังนั้นเราจะใช้ตัวแปรปกติไม่ได้ ต้องเป็นบางสิ่งที่สามารถทำให้ Component รู้
+
+## useState
+
+เราจะใช้สิ่งที่เรียกว่า State แทนตัวแปรทั่วๆไป โดย State เป็น Object ชนิดหนึ่งของ React ที่เมื่อค่ามีการเปลี่ยน,
+Component จะเปลี่ยนตาม (Re-render)
+
+```tsx
+const [num, setNum] = useState(0);
+const [str, setStr] = useState("");
+const [bool, setBool] = useState(false);
+
+// หรือ Type ที่เรากำหนด
+const [custom, setCustom] = useState<CustomType>(/* Default */);
+```
+
+โดย State จะเป็น function หนึ่งที่รับ parameter ตัวหนึ่งเป็นชนิดอะไรก็ได้ ซึ่งคือค่าเริ่มต้นเมื่อเราไม่ได้ทำอะไรกับมัน
+สิ่งที่ function useState return กลับคืออาเรย์สองช่อง ช่องที่ 0 คือค่าของ `state` และ ช่องที่ 1 คือ `setter`
+
+:::info
+เราไม่สามารถเปลี่ยนค่า state ได้ตรงๆ จะต้องเปลี่ยนผ่าน setter
+
+setter คือ function ที่เอาไว้ set ค่าของ state
+:::
+
+ซึ่งถ้านำไปใช้ตัวอย่างในตอนแรกหน้าตาจะออกมาแบบนี้
+
+```tsx
+// highlight-next-line
+import { useState } from 'react';
+
+function Counter() {
+  // highlight-next-line
+  const [count, setCount] = useState(0);
+
+  return (
+    // highlight-next-line
+    <button onClick={() => { setCount(count + 1) }}>
+      {number}
+    </button>
+  );
+}
+```
