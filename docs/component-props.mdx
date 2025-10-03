@@ -1,0 +1,91 @@
+---
+sidebar_position: 4
+---
+
+# Component & Props
+
+## Component
+
+import componentImg from "./assets/components.png"
+
+ใน React จะใช้หลักการ Component-based architecture หรือพูดง่ายๆว่าเราจะมองทุกอย่างในหน้าเว็บที่เรา Design
+แบ่งออกเป็นส่วนต่างๆ แล้วนำมาประกอบกัน
+
+<img src={componentImg} />
+
+ตัวอย่าง Syntax ของ React ในการเขียน 1 Component React จะใช้ Function เป็นตัวแทน
+
+และ Function นั้นๆ จะ return ค่าเป็น element ใน HTML
+
+```tsx
+function MyText() {
+  return (
+    <h1>
+      Hello World !
+    </h1>
+  );
+}
+
+// หรือจะเขียนในรูปแบบ Lambda ก็ได้
+const MyText = () => (
+  <h1>
+    Hello World !
+  </h1>
+);
+```
+
+แต่ตอนเรียกใช้ Component จะต่างกับการเขียนเรียกใช้ Function ทั่วๆไป
+```tsx
+<MyText />
+```
+
+---
+
+HTML ที่ return นั้น ไม่เหมือนกับ HTML ทั่วๆไป, React เพิ่มความสามารถให้เราเขียนตัวแปร Javascript ใน HTML นั้นๆได้ตัวอย่างเช่น สร้างตัวแปรอักษรและนำไปใส่ได้
+
+```tsx
+// highlight-next-line
+const name = "apple";
+
+function MyText() {
+  return (
+    <h1>
+      // highlight-next-line
+      Hello World {name}!
+    </h1>
+  );
+}
+```
+
+จริงๆแล้วมันมีประโยชน์มากกว่านั้นนอกจากใส่ตัวแปรเฉยๆ โดยในพูดถึงในหน้าถัดๆไป
+
+---
+
+## Properties
+
+หรือเรียกสั้นๆว่า Props เป็นการส่งข้อมูลไปให้ Component คล้ายกับการส่งค่าไปใน Function
+
+```tsx
+interface MyTextProps {
+  name: string
+  color: string
+}
+
+function MyText(props: MyTextProps) {
+  return (
+    <h1>
+      My name is {props.name} and i have color {props.color}
+    </h1>
+  );
+}
+```
+
+ในโค้ดด้านบนเราจะกำหนดว่า Props จะมีค่าอะไรบ้างด้วย interface จากนั้นเรากำหนด parameter function ชื่อ props (จริงๆแล้วชื่ออะไรก็ได้)
+
+ซึ่งการส่งค่าเป็นแบบ attribute=value ตัวอย่างเช่น
+
+```tsx
+<MyText name="apple" color="red" />
+```
+
+โดยนอกจะส่งค่าพื้นฐานเช่น ตัวเลขหรือข้อความ ยังมี Props พิเศษอีกหนึ่งอย่างโดยเราจะสามารถ
