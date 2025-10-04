@@ -1,0 +1,102 @@
+---
+sidebar_label: More React Hooks
+sidebar_position: 7
+---
+
+# More React Hooks
+
+## `useEffect()`
+
+ใช้จัดการ **side effects** เช่น การ fetch ข้อมูล, การตั้งค่า event listener, หรือการอัปเดต DOM
+มันจะทำงาน **หลังจาก render เสร็จแล้ว**
+
+```jsx
+import { useEffect, useState } from "react";
+
+function Example() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("https://api.example.com/items")
+      .then(res => res.json())
+      .then(setData);
+  }, []);
+
+  return <div>{data.length} items loaded.</div>;
+}
+```
+
+* ถ้า `[]` ว่าง → ทำงานแค่ครั้งแรก (ตอน mount)
+* ถ้ามี dependency เช่น `[count]` → จะทำงานทุกครั้งที่ `count` เปลี่ยน
+* สามารถ return ฟังก์ชัน cleanup ได้ เช่น ใช้ลบ event listener
+
+```jsx
+useEffect(() => {
+  const handleResize = () => console.log("resized!");
+  window.addEventListener("resize", handleResize);
+
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+```
+
+---
+
+## `useContext()`
+
+ใช้เพื่อเข้าถึงค่า **context** ที่ถูกส่งมาจาก `createContext()`
+เหมาะกับข้อมูลที่ใช้ร่วมกันหลาย component เช่น theme, user, language
+
+```jsx
+import { createContext, useContext } from "react";
+
+const ThemeContext = createContext("light");
+
+function Child() {
+  const theme = useContext(ThemeContext);
+  return <div>Current theme: {theme}</div>;
+}
+
+function App() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Child />
+    </ThemeContext.Provider>
+  );
+}
+```
+
+* `ThemeContext.Provider` ใช้ส่งค่าผ่าน context
+* `useContext(ThemeContext)` ใช้รับค่าใน child component
+* เมื่อค่าจาก Provider เปลี่ยน → component ที่ใช้ context จะ re-render
+
+---
+
+## `useRef()`
+
+ใช้สร้าง **reference ที่ไม่ re-render เมื่อค่าเปลี่ยน**
+เหมาะสำหรับ:
+
+* เก็บ DOM element
+* เก็บค่าที่ต้องใช้ข้าม render แต่ไม่อยากให้ trigger re-render
+
+```jsx
+import { useRef, useEffect } from "react";
+
+function InputFocus() {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus(); // เข้าถึง DOM ได้ตรงๆ
+  }, []);
+
+  return <input ref={inputRef} placeholder="Focus me on mount" />;
+}
+```
+
+หรือใช้เก็บค่าทั่วไป:
+
+```jsx
+const renderCount = useRef(0);
+renderCount.current += 1;
+console.log("Render:", renderCount.current);
+```

@@ -4,30 +4,85 @@ sidebar_position: 6
 
 # Lists & Conditional UI
 
-React สามารถนำ list ของ Component มา Render ได้ 
+## List of elements
 
+React สามารถนำ list มาใส่ใน Component ได้โดยที่ผลลัพธ์จะออกมาเป็นค่าใน list 
 ```tsx
-const lists = ["a", "b", "c"]; 
+const list = ["a", 1, true];
 
 function Component() {
-  return (
-    <div>{lists}</div>
-  );
+  return <div>{list}</div>
 }
 ```
 
 เราสามารถนำ List มาแปลงเป็น HTML element ได้ด้วย function map ของ list
 
 ```tsx
-// highlight-next-line
-const lists = ["a", "b", "c"]
-  .map((elem) =>
-    <button>{elem}</button>
-  ); 
+const list = ["a", 1, true]; 
 
 function Component() {
-  return (
-    <div>{lists}</div>
-  );
+  // highlight-start
+  const htmlList = list.map((elem) => <button>{elem}</button>);
+  return <div>{htmlList}</div>
+  // highlight-end
+}
+```
+
+---
+
+## Conditional element
+
+ใน React เราสามารถกำหนดเงื่อนของ Element ได้ว่าจะให้ Render เป็น element อะไรในเงื่อนไขใดๆ 
+
+### If condition
+ตัวอย่างเช่น ระบบแสดง จะมีรูปแบบดังนี้
+```tsx
+interface PageProps {
+  isLoggedIn: boolean
+}
+
+function Page({ isLoggedIn }: PageProps) {
+  if (isLoggedIn) {
+    return <DashboardPage />
+  }
+  
+  return null;
+}
+```
+
+หรือจะเขียนในรูปแบบ inline แบบใช้ && `(condition && element)`
+
+```tsx
+function Page({ isLoggedIn }: PageProps) {
+  return (isLoggedIn && <DashboardPage />);
+}
+```
+
+### If then else condition
+
+ตัวอย่างเช่นเราทำระบบที่ถ้าเป็นผู้ใช้ทั่วไปให้แสดงข้อความอย่างนึงและถ้าเป็นแอดมินให้ข้อความอย่างนึง จะมีรูปแบบดังนี้
+
+```tsx
+interface TextProps {
+  isAdmin: boolean
+}
+
+function Text({ isAdmin }: TextProps) {
+  if (isAdmin) {
+    return <AdminText />
+  }
+  else {
+    return <UserText />
+  }
+
+  return null;
+}
+```
+
+หรือจะเขียนในรูปแบบ inline `(condition : element-if-true ? element-if-true)`
+
+```tsx
+function Text({ isAdmin }: TextProps) {
+  return (isAdmin ? <AdminText /> : <UserText />);
 }
 ```

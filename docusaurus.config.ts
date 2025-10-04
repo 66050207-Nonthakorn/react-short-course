@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: "This is React, Don't Overreact!",
-  tagline: 'Dinosaurs are cool',
+  tagline: 'Basic react course',
   favicon: 'img/react-favicon.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -15,7 +15,7 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://react-course.applentk.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -40,7 +40,7 @@ const config: Config = {
       'classic',
       {
         docs: {
-          routeBasePath: "/",
+          routeBasePath: "/v1",
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -66,7 +66,7 @@ const config: Config = {
       logo: {
         alt: 'Logo',
         src: 'img/react-icon.png',
-        href: "/"
+        href: "/v1"
       },
     },
     footer: {
