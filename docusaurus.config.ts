@@ -40,7 +40,7 @@ const config: Config = {
       'classic',
       {
         docs: {
-          routeBasePath: "/v1",
+          routeBasePath: "/",
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -66,7 +66,7 @@ const config: Config = {
       logo: {
         alt: 'Logo',
         src: 'img/react-icon.png',
-        href: "/v1"
+        href: "/"
       },
     },
     footer: {
