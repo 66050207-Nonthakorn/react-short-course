@@ -4,3 +4,85 @@ sidebar_position: 8
 ---
 
 # Routing with React Router
+
+React อย่างเดียวจะไม่สามารถสร้างหน้าหลายๆหน้า เราจึงต้องมี Library อื่นมาช่วยนั่นคือ React Router
+
+## React Router
+
+React Router คือไลบรารีที่ช่วยให้ React สามารถทำ การเปลี่ยนหน้า (routing)
+ได้เหมือนเว็บไซต์ทั่วไป โดยไม่ต้อง reload หน้าใหม่ทั้งหมด
+
+---
+
+## Installation
+
+```bash
+npm install react-router
+```
+
+---
+
+## Usage
+
+```tsx {1,9-15} title="App.tsx"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+
+export function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+```
+
+## Dynamic Route
+
+```tsx title="App.tsx"
+<Route
+  path="/blogs/:id"
+  element={<Blog />}
+/>
+```
+
+```tsx title="Blog.tsx"
+import { useParams } from "react-router-dom";
+
+export default function Blog() {
+  const { id } = useParams();
+  return <h1>Blog {id}</h1>;
+}
+```
+
+## Nested Route
+
+```tsx {1}
+<Route element={<RootLayout />}>
+  <Route path="/" element={<Home />} />
+  <Route path="/about" element={<About />} />
+  <Route path="/contact" element={<Contact />} />
+<Route/>
+```
+
+```tsx {1,7} title="RootLayout.tsx"
+import { Outlet } from "react-router-dom";
+
+export default function RootLayout() {
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
+  );
+}
+
+```

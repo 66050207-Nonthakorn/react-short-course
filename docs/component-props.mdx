@@ -22,7 +22,7 @@ function MyText() {
   return <h1>Hello World !</h1>
 }
 
-// หรือจะเขียนในรูปแบบ Lambda ก็ได้
+// Lambda
 const MyText = () => (
   <h1>Hello World !</h1>
 );
@@ -31,12 +31,10 @@ const MyText = () => (
 
 HTML ที่ return นั้น ไม่เหมือนกับ HTML ทั่วๆไป, React เพิ่มความสามารถให้เราเขียนตัวแปร Javascript ใน HTML นั้นๆได้ตัวอย่างเช่น สร้างตัวแปรอักษรและนำไปใส่ได้
 
-```tsx
-// highlight-next-line
+```tsx {1,4}
 const name = "apple";
 
 function MyText() {
-  // highlight-next-line
   return <h1>Hello World {name}!</h1>
 }
 ```
@@ -46,7 +44,8 @@ function MyText() {
 
 และในตอนเรียกใช้ Component จะต่างกับการเขียนเรียกใช้ Function ทั่วๆไปโดยหน้าตาคล้ายกับ element ของ HTML
 ```tsx
-<MyText />
+MyText()    ❌
+<MyText />  ✅
 ```
 
 ---
@@ -58,21 +57,18 @@ function MyText() {
 เราจะกำหนดว่า Props จะมีค่าอะไรบ้างด้วย interface จากนั้นเรากำหนด Parameter รับ object
 ชื่อ props (จริงๆแล้วชื่ออะไรก็ได้)
 
-```tsx
-// highlight-start
+```tsx {1-4,6,9-10}
 interface MyTextProps {
   name: string
-  color: string
+  num: number
 }
-// highlight-end
 
-// highlight-next-line
 function MyText(props: MyTextProps) {
   return (
-    <h1>
-      // highlight-next-line
-      My name is {props.name} and i have color {props.color}
-    </h1>
+    <>
+      <h1>My name is {props.name}</h1>
+      <p>and i like number {props.num}</p>
+    </>
   );
 }
 ```
@@ -80,7 +76,7 @@ function MyText(props: MyTextProps) {
 ซึ่งการส่งค่าเป็นแบบ attribute=value ตัวอย่างเช่น
 
 ```tsx
-<MyText name="apple" color="red" />
+<MyText name="apple" num={4} />
 ```
 
 โดยนอกจะส่งค่าพื้นฐานเช่นตัวเลขหรือข้อความ ยังมี Props พิเศษอีกหนึ่งอย่างโดย Props นั้นจะมี attribute ชื่อ children
@@ -89,14 +85,12 @@ function MyText(props: MyTextProps) {
 
 ```tsx
 interface ParentProps {
-  // highlight-next-line
   children: React.ReactNode[]
 }
 
 function Parent(props: ParentProps) {
   return (
     <div>
-      // highlight-next-line
       {props.children}
     </div>
   );

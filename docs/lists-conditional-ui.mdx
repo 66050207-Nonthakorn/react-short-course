@@ -17,17 +17,14 @@ function Component() {
 
 เราสามารถนำ List มาแปลงเป็น HTML element ได้ด้วย function map ของ list
 
-```tsx
+```tsx {4-5}
 const list = ["a", 1, true]; 
 
 function Component() {
-  // highlight-start
   const htmlList = list.map((elem) => <button>{elem}</button>);
   return <div>{htmlList}</div>
-  // highlight-end
 }
 ```
-
 ---
 
 ## Conditional element
@@ -84,5 +81,20 @@ function Text({ isAdmin }: TextProps) {
 ```tsx
 function Text({ isAdmin }: TextProps) {
   return (isAdmin ? <AdminText /> : <UserText />);
+}
+```
+
+```tsx
+function Page({ data, isAdmin }) {
+  return (
+    <div>
+      <p>
+        You are {isAdmin ? "admin" : "user"}
+      </p>
+      <div>
+        {isAdmin && data}
+      </div>
+    </div>
+  );
 }
 ```

@@ -3,3 +3,25 @@ sidebar_position: 9
 ---
 
 # Working with APIs
+
+Fetch API คือฟังก์ชันใน JavaScript ที่ใช้สำหรับ
+ดึงข้อมูลจาก API (REST, JSON) หรือส่งข้อมูลไปยัง เซิร์ฟเวอร์
+โดยทำงานแบบ asynchronous (ไม่บล็อกหน้าเว็บ)
+
+ใน React เรามักใช้ fetch() คู่กับ useEffect() เพื่อให้มันทำงานหลังจาก component ถูก mount
+
+
+```tsx
+function UsersPage() {
+  const [users, setUser] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://api.example.com/users`)
+      .then((res) => res.json())
+      .then((data) => setUser(user)); 
+  }, []);
+
+  return ...
+}
+```
+

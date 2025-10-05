@@ -24,13 +24,13 @@ function Counter() {
 
 เพราะ Component ไม่รู้ว่ามีการเปลี่ยนแปลงอะไรด้านในตัวเองบ้าง ดังนั้นเราจะใช้ตัวแปรปกติไม่ได้ ต้องเป็นบางสิ่งที่สามารถทำให้ Component รู้
 
-## useState
+## useState()
 
 เราจะใช้สิ่งที่เรียกว่า State แทนตัวแปรทั่วๆไป โดย State เป็น Object ชนิดหนึ่งของ React ที่เมื่อค่ามีการเปลี่ยน,
 Component จะเปลี่ยนตาม (Re-render)
 
 ```tsx
-const [num, setNum] = useState(0);
+const [num, setNum] = useState();
 const [str, setStr] = useState("");
 const [bool, setBool] = useState(false);
 
@@ -40,6 +40,24 @@ const [custom, setCustom] = useState<CustomType>(/* Default */);
 
 โดย State จะเป็น function หนึ่งที่รับ parameter ตัวหนึ่งเป็นชนิดอะไรก็ได้ ซึ่งคือค่าเริ่มต้นเมื่อเราไม่ได้ทำอะไรกับมัน
 สิ่งที่ function useState return กลับคืออาเรย์สองช่อง ช่องที่ 0 คือค่าของ `state` และ ช่องที่ 1 คือ `setter`
+
+```tsx
+num += 1; ❌
+setCount(num + 1); ✅
+
+isAdmin = false; ❌
+setIsAdmin(false); ✅
+
+// Push element directly ❌
+myList.push("c")
+
+// Create new array ✅
+setList([...myList, "c"])
+// or
+const newList = Array.from(myList);
+newList.push("c");
+setList(newList);
+```
 
 :::info
 เราไม่สามารถเปลี่ยนค่า state ได้ตรงๆ จะต้องเปลี่ยนผ่าน setter
@@ -59,7 +77,7 @@ function Counter() {
 
   return (
     // highlight-next-line
-    <button onClick={() => { setCount(count + 1) }}>
+    <button onClick={() => setCount(count + 1)}>
       {number}
     </button>
   );
